@@ -15,11 +15,9 @@
 	</xsl:template>
 	
 	<xsl:template match="/rng:grammar">
-		<xsl:variable name="grammar-pretty-name">Prosopograpy</xsl:variable>
-		
 		<d:book version="5.0">
-			<d:title><xsl:value-of select="$grammar-pretty-name"/></d:title>
-			
+			<xsl:call-template name="title"/>
+
 			<d:chapter>
 				<d:title>
 					<xsl:text>Introduction</xsl:text>
@@ -61,5 +59,17 @@
 
 			<xsl:copy-of select="$elem-documentation"/>
 		</d:section>
+	</xsl:template>
+
+	<xsl:template name="title">
+		<xsl:choose>
+			<xsl:when test="//rng:start/d:title">
+				<xsl:copy-of select="//rng:start/d:title"/>
+				<xsl:copy-of select="//rng:start/d:subtitle"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<d:title><xsl:value-of select="base-uri()"/>: schema documentation</d:title>
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:template>
 </xsl:stylesheet>
