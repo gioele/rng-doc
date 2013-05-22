@@ -5,13 +5,15 @@ docs := $(docs_xml) $(docs_compact)
 SAXON := java -cp support/saxon9he.jar net.sf.saxon.Transform -t
 DB_XSL := /usr/share/xml/docbook/stylesheet/docbook-xsl-ns/xhtml-1_1/docbook.xsl
 
+RNG_DOC := rng-doc.xsl
+
 all: $(docs)
 
 %.html: %.docbook
 	$(SAXON) -s:$< -xsl:$(DB_XSL) -o:$@
 
-%.docbook: %.rng
-	$(SAXON) -s:$< -xsl:rng-doc.xsl -o:$@
+%.docbook: %.rng $(RNG_DOC)
+	$(SAXON) -s:$< -xsl:$(RNG_DOC) -o:$@
 
 %.rng: %.rnc
 	trang $< $@
