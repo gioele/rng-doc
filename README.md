@@ -1,5 +1,5 @@
-rng-doc: Document Relax NG schemas with DocBook
-===============================================
+rng-doc: Embed DocBook documentation in Relax NG schemas
+========================================================
 
 `rng-doc` is an XSLT stylesheet that extracts DocBook documentation
 embedded in Relax NG schemas.
