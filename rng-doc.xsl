@@ -14,15 +14,15 @@
 		<xsl:value-of select="string-join(tokenize(base-uri(), '/')[position() != last()], '/')"/>
 	</xsl:param>
 
-	<xsl:param name="examples-path">
-		<xsl:value-of select="concat($base-dir, '/examples?select=*.xml')"/>
-	</xsl:param>
-
-	<xsl:variable name="example-docs" select="collection($examples-path)"/>
-
 	<xsl:variable name="schema-filename" select="tokenize(base-uri(), '/')[last()]"/>
 
 	<xsl:variable name="schema-codename" select="replace($schema-filename, '\.rn(c|g)', '')"/>
+
+	<xsl:param name="examples-path">
+		<xsl:value-of select="concat($base-dir, '/examples?select=', $schema-codename, '-*.xml')"/>
+	</xsl:param>
+
+	<xsl:variable name="example-docs" select="collection($examples-path)"/>
 
 	<xsl:template match="/">
 		<xsl:apply-templates/>
