@@ -108,7 +108,9 @@
 
 		<xsl:if test="$examples">
 			<d:section>
-				<d:title>Examples</d:title>
+				<d:title>
+					<xsl:text>Examples</xsl:text>
+				</d:title>
 
 				<xsl:for-each select="$examples">
 					<xsl:copy-of select="."/>
