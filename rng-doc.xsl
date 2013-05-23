@@ -113,7 +113,9 @@
 	<xsl:template name="external-examples">
 		<xsl:variable name="elem-name" select="@name"/>
 
-		<xsl:for-each select="$example-docs//comment()[./following-sibling::*[1][name() = $elem-name]]">
+		<xsl:variable name="example-comments" select="$example-docs//comment()[./following-sibling::*[1][name() = $elem-name]]"/>
+
+		<xsl:for-each select="$example-comments">
 			<d:example>
 				<d:title><xsl:value-of select="normalize-space(.)"/></d:title>
 				<d:programlisting>
