@@ -9,7 +9,17 @@
 		method="xml"
 		indent="yes"
 	/>
-	
+
+	<xsl:param name="base-dir">
+		<xsl:value-of select="string-join(tokenize(base-uri(), '/')[position() != last()], '/')"/>
+	</xsl:param>
+
+	<xsl:param name="examples-path">
+		<xsl:value-of select="concat($base-dir, '/examples?select=*.xml')"/>
+	</xsl:param>
+
+	<xsl:variable name="example-docs" select="collection($examples-path)"/>
+
 	<xsl:template match="/">
 		<xsl:apply-templates/>
 	</xsl:template>
@@ -39,25 +49,13 @@
 			<xsl:value-of select="@name"/>
 		</xsl:variable>
 
-		<xsl:variable name="elem-documentation">
-			<xsl:copy-of select="d:subtitle | d:para | d:example"/>
-		</xsl:variable>
-
 		<d:section>
 			<d:title>
 				<xsl:value-of select="$elem-name"/>
 			</d:title>
 
-			<xsl:if test="empty($elem-documentation/*)">
-				<d:para>
-					<xsl:text>No documentation available for element </xsl:text>
-					<d:tag>
-						<xsl:value-of select="$elem-name"/>
-					</d:tag>
-				</d:para>
-			</xsl:if>
-
-			<xsl:copy-of select="$elem-documentation"/>
+			<xsl:call-template name="textual-documentation"/>
+			<xsl:call-template name="examples"/>
 		</d:section>
 	</xsl:template>
 
@@ -71,5 +69,61 @@
 				<d:title><xsl:value-of select="base-uri()"/>: schema documentation</d:title>
 			</xsl:otherwise>
 		</xsl:choose>
+	</xsl:template>
+
+	<xsl:template name="textual-documentation">
+		<xsl:variable name="elem-name" select="@name"/>
+
+		<xsl:variable name="elem-documentation">
+			<xsl:copy-of select="d:subtitle | d:para"/>
+		</xsl:variable>
+
+		<xsl:if test="empty($elem-documentation/*)">
+			<d:para>
+				<xsl:text>No documentation available for element </xsl:text>
+				<d:tag>
+					<xsl:value-of select="$elem-name"/>
+				</d:tag>
+			</d:para>
+		</xsl:if>
+
+		<xsl:copy-of select="$elem-documentation"/>
+	</xsl:template>
+
+	<xsl:template name="examples">
+		<xsl:variable name="embedded-examples" select="d:example"/>
+
+		<xsl:variable name="external-examples">
+			<xsl:call-template name="external-examples">
+				<xsl:with-param name="elem-name" select="@name"/>
+			</xsl:call-template>
+		</xsl:variable>
+
+		<xsl:variable name="examples" select="$embedded-examples | $external-examples"/>
+
+		<xsl:if test="$examples">
+			<d:section>
+				<d:title>Examples</d:title>
+
+				<xsl:for-each select="$examples">
+					<xsl:copy-of select="."/>
+				</xsl:for-each>
+			</d:section>
+		</xsl:if>
+	</xsl:template>
+
+	<xsl:template name="external-examples">
+		<xsl:param name="elem-name" required="yes"/>
+
+		<xsl:for-each select="$example-docs//comment()[./following-sibling::*[1][name() = $elem-name]]">
+			<d:example>
+				<d:title><xsl:value-of select="normalize-space(.)"/></d:title>
+				<d:programlisting>
+					<!--
+					<xsl:copy-of select="./following-sibling::*[1]"/>
+					-->
+				</d:programlisting>
+			</d:example>
+		</xsl:for-each>
 	</xsl:template>
 </xsl:stylesheet>

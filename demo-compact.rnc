@@ -1,0 +1,37 @@
+datatypes xsd = "http://www.w3.org/2001/XMLSchema-datatypes"
+
+namespace d = "http://docbook.org/ns/docbook"
+
+[
+	d:title [ "Botanic records" ]
+	d:subtitle [ "XML records for botanic data" ]
+]
+
+start = data
+
+[
+	d:subtitle [ "Main record container" ]
+	d:para [ "The container of all the botanical data present in the XML file." ]
+	d:example [
+		d:title [ "An empty container" ]
+		d:programlisting [
+"""<data xml:id="fe46dap">
+</data>"""
+		]
+	]
+]
+data = element data {
+    id.att,
+    nicknames?,
+    specimen*
+}
+
+id.att = attribute xml:id { xsd:NCName }
+
+nicknames = element nicknames {
+	empty
+}
+
+specimen = element specimen {
+	id.att?
+}

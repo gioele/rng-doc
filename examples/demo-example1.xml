@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- A simple person element -->
+<data xml:id='inv-2013'>
+	<nicknames>
+	</nicknames>
+
+	<!-- An anonymous specimen -->
+	<specimen>
+	</specimen>
+
+	<!-- A named specimen -->
+	<specimen xml:id="s1">
+	</specimen>
+</data>
