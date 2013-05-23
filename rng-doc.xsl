@@ -60,13 +60,18 @@
 	</xsl:template>
 
 	<xsl:template name="title">
+		<xsl:variable name="schema-filename" select="tokenize(base-uri(), '/')[last()]"/>
+
 		<xsl:choose>
 			<xsl:when test="//rng:start/d:title">
 				<xsl:copy-of select="//rng:start/d:title"/>
 				<xsl:copy-of select="//rng:start/d:subtitle"/>
 			</xsl:when>
 			<xsl:otherwise>
-				<d:title><xsl:value-of select="base-uri()"/>: schema documentation</d:title>
+				<d:title>
+					<xsl:value-of select="$schema-filename"/>
+					<xsl:text>: schema documentation</xsl:text>
+				</d:title>
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
