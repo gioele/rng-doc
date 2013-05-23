@@ -128,9 +128,9 @@
 			<d:example>
 				<d:title><xsl:value-of select="normalize-space(.)"/></d:title>
 				<d:programlisting>
-					<!--
+					<xsl:text disable-output-escaping="yes">&lt;![CDATA[</xsl:text>
 					<xsl:copy-of select="./following-sibling::*[1]"/>
-					-->
+					<xsl:text disable-output-escaping="yes">]]&gt;</xsl:text>
 				</d:programlisting>
 			</d:example>
 		</xsl:for-each>
