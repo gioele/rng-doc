@@ -1,5 +1,7 @@
 *.docbook
 *.html
 *.rng
+!demo.rng
 *.rnc
+!demo-compact.rnc
 support/

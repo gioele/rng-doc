@@ -9,7 +9,7 @@ Usage
 -----
 
 First, the Relax NG schema must be annotated with DocBook tags. See the
-`example.rng` and `example-compact.rnc` example files to learn how
+`demo.rng` and `demo-compact.rnc` example files to learn how
 to annotate the schema.
 
 To generate the documentation just copy the schema to the directory and
