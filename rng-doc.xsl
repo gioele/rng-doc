@@ -94,9 +94,7 @@
 		<xsl:variable name="embedded-examples" select="d:example"/>
 
 		<xsl:variable name="external-examples">
-			<xsl:call-template name="external-examples">
-				<xsl:with-param name="elem-name" select="@name"/>
-			</xsl:call-template>
+			<xsl:call-template name="external-examples"/>
 		</xsl:variable>
 
 		<xsl:variable name="examples" select="$embedded-examples | $external-examples"/>
@@ -113,7 +111,7 @@
 	</xsl:template>
 
 	<xsl:template name="external-examples">
-		<xsl:param name="elem-name" required="yes"/>
+		<xsl:variable name="elem-name" select="@name"/>
 
 		<xsl:for-each select="$example-docs//comment()[./following-sibling::*[1][name() = $elem-name]]">
 			<d:example>
