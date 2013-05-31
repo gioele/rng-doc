@@ -5,3 +5,5 @@
 *.rnc
 !demo-compact.rnc
 support/
+examples/*.xml
+!examples/demo-compact-*.xml
