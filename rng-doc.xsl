@@ -59,7 +59,7 @@
 			<xsl:value-of select="@name"/>
 		</xsl:variable>
 
-		<d:section>
+		<d:section xml:id="{$elem-name}">
 			<d:title>
 				<xsl:value-of select="$elem-name"/>
 			</d:title>
