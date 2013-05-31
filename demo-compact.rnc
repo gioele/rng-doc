@@ -5,6 +5,11 @@ namespace d = "http://docbook.org/ns/docbook"
 [
 	d:title [ "Botanic records" ]
 	d:subtitle [ "XML records for botanic data" ]
+
+	d:para [
+"""The botanic records data format is used to exchange
+data about botanic species and specimens."""
+	]
 ]
 
 start = data

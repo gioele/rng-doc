@@ -36,6 +36,8 @@
 				<d:title>
 					<xsl:text>Introduction</xsl:text>
 				</d:title>
+
+				<xsl:apply-templates select="rng:start"/>
 			</d:chapter>
 			
 			<d:chapter>
@@ -47,7 +49,11 @@
 			</d:chapter>
 		</d:book>
 	</xsl:template>
-	
+
+	<xsl:template match="rng:start">
+		<xsl:call-template name="textual-documentation"/>
+	</xsl:template>
+
 	<xsl:template match="rng:define">
 		<xsl:variable name="elem-name">
 			<xsl:value-of select="@name"/>
