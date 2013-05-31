@@ -88,7 +88,7 @@
 		<xsl:variable name="elem-name" select="@name"/>
 
 		<xsl:variable name="elem-documentation">
-			<xsl:copy-of select="d:subtitle | d:para"/>
+			<xsl:copy-of select="d:subtitle | d:para | d:simplesect | d:indexterm"/>
 		</xsl:variable>
 
 		<xsl:if test="empty($elem-documentation/*)">
